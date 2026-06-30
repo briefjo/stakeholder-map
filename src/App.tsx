@@ -253,12 +253,12 @@ export default function App() {
               const pos = bubblePositions.find(p => p.id === s.id)!;
               const tc = TIER[s.tier];
               const isV = visibleIds.has(s.mirrorOf ?? s.id);
-              const isSel = selected?.id === s.id || selected?.id === s.mirrorOf;
-              const isHov = hovered === s.id;
               const sourceStakeholder = stakeholderById.get(s.mirrorOf ?? s.id) ?? s;
+              const isSel = selected?.id === sourceStakeholder.id;
+              const isHov = hovered === s.id;
               return (
                 <g key={s.id} style={{ cursor: "pointer", opacity: isV ? 1 : 0.15 }}
-                  onClick={() => setSelected(isSel ? null : sourceStakeholder)}
+                  onClick={() => setSelected(sourceStakeholder)}
                   onMouseEnter={() => setHovered(s.id)} onMouseLeave={() => setHovered(null)}>
                   {isHov && !isSel && <circle cx={pos.x} cy={pos.y} r={BUBBLE_R+4} fill="none" stroke={tc.color} strokeWidth={1} opacity={0.35} />}
                   <circle cx={pos.x} cy={pos.y} r={BUBBLE_R} fill={tc.dimColor} stroke={tc.color} strokeWidth={isSel ? 2 : 1.5} />
